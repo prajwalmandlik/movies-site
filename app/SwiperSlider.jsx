@@ -33,7 +33,7 @@ export default function SwiperSlider({ title }) {
       <Swiper
         breakpoints={{
           350: {
-            slidesPerView: 2,
+            slidesPerView: 1,
             spaceBetween: 10,
           },
           476: {
