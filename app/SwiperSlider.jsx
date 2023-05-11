@@ -60,7 +60,7 @@ export default function SwiperSlider({ title }) {
         className="mySwiper"
       >
         {data.map((item) => (
-          <SwiperSlide>
+          <SwiperSlide key={item}>
             <Link href="/details">
               <Img
                 css={{
@@ -70,7 +70,7 @@ export default function SwiperSlider({ title }) {
                   },
                 }}
                 h={"15rem"}
-                w={["100%", "auto"]}
+                w={"auto"}
                 objectFit={"cover"}
                 src={item}
               />
