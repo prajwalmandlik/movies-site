@@ -1,16 +1,11 @@
 "use client";
-import { Button, HStack } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
+import { Box, Button, HStack } from "@chakra-ui/react";
 
-const filterCatgory = [
+const filterCategory = [
   "All",
   "Biography",
-  "Film Noir",
-  "Game Show",
-  "Musical",
-  "Sport",
   "Short",
-  "Adult",
   "Adventure",
   "Fantasy",
   "Animation",
@@ -19,34 +14,56 @@ const filterCatgory = [
   "Action",
   "Comedy",
   "History",
-  "Western",
   "Thriller",
   "Crime",
   "Documentary",
   "Science Fiction",
   "Mystery",
-  "Music",
   "Romance",
-  "Family",
   "War",
-  "News",
-  "Reality",
-  "Talk Show",
 ];
 
 const Filter = () => {
+  const [selectedButton, setSelectedButton] = useState("All");
+
+  const handleClick = (data) => {
+    setSelectedButton(data);
+    console.log(data);
+  };
+
   return (
-    <>
-      <HStack overflow={"auto"} wrap={"nowrap"}>
-        {filterCatgory.map((ele) => (
-          <>
-            <Button variant={"outline"} w={"auto"}>
-              {ele}
-            </Button>{" "}
-          </>
+    <Box
+      overflowX="scroll"
+      mx={4}
+      sx={{
+        scrollbarWidth: "thin",
+        "&::-webkit-scrollbar": {
+          height: "6px",
+          backgroundColor: "transparent",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          borderRadius: "3px",
+          backgroundColor: "gray.300",
+        },
+        "&:hover::-webkit-scrollbar-thumb": {
+          backgroundColor: "gray.400",
+        },
+      }}
+    >
+      <HStack wrap="nowrap" spacing={2} p={2}>
+        {filterCategory.map((ele) => (
+          <Button
+            key={ele}
+            variant={selectedButton === ele ? "solid" : "outline"}
+            minW="auto"
+            px="2rem"
+            onClick={() => handleClick(ele)}
+          >
+            {ele}
+          </Button>
         ))}
       </HStack>
-    </>
+    </Box>
   );
 };
 

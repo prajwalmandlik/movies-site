@@ -9,7 +9,6 @@ import { FreeMode, Navigation } from "swiper";
 import { Box, Heading, Img } from "@chakra-ui/react";
 import Link from "next/link";
 
-
 const data = [
   "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_.jpg",
   "https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_.jpg",
@@ -33,8 +32,12 @@ export default function SwiperSlider({ title }) {
       </Heading>
       <Swiper
         breakpoints={{
-          576: {
-            slidesPerView: 1,
+          350: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+          },
+          476: {
+            slidesPerView: 3,
             spaceBetween: 10,
           },
           768: {
@@ -46,7 +49,7 @@ export default function SwiperSlider({ title }) {
             spaceBetween: 20,
           },
           1080: {
-            slidesPerView: 6,
+            slidesPerView: 8,
             spaceBetween: 20,
           },
         }}
@@ -58,23 +61,23 @@ export default function SwiperSlider({ title }) {
       >
         {data.map((item) => (
           <SwiperSlide>
-            <Link href="/details" >
-          <Img
-            css={{
-              "&:hover": {
-                transition: "all 0.5s ease",
-                transform: "scale(1.1)",
-              },
-            }}
-            h="25rem"
-            w={["100%", "auto"]}
-            objectFit={"cover"}
-            src={item}
-          /></Link>
-        </SwiperSlide>
+            <Link href="/details">
+              <Img
+                css={{
+                  "&:hover": {
+                    transition: "all 0.5s ease",
+                    transform: "scale(1.1)",
+                  },
+                }}
+                h={"15rem"}
+                w={["100%", "auto"]}
+                objectFit={"cover"}
+                src={item}
+              />
+            </Link>
+          </SwiperSlide>
         ))}
       </Swiper>
     </Box>
   );
 }
-
