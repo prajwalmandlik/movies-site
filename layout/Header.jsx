@@ -21,39 +21,20 @@ import {
 import { CloseIcon, MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { Context } from "../components/Clients";
+import {
+  AutoComplete,
+  AutoCompleteInput,
+  AutoCompleteItem,
+  AutoCompleteList,
+  AutoCompleteFixedItem,
+} from '@choc-ui/chakra-autocomplete';
 
 const Header = () => {
   const [value, setValue] = useState("");
   const [searchState, setSearchState] = useState(true);
   const login = false;
   const { colorMode, toggleColorMode } = useColorMode();
-  const { setSearch  } = useContext(Context);
-
-  //   const navigate = useNavigate();
-  //   const dispatch = useDispatch();
-
-  //   const logOut = async () => {
-  //     try {
-  //       await axios.get(`${server}/users/logout`, {
-  //         withCredentials: true,
-  //       });
-
-  //       toast.success("Logged Out Successfully");
-  //       dispatch({
-  //         type: "updateLogin",
-  //         payload: false,
-  //       });
-
-  //       const data = { name: "adhikar", email: "adhikar@gmail.com" };
-
-  //       dispatch({
-  //         type: "updateUserData",
-  //         payload: data,
-  //       });
-  //     } catch (error) {
-  //       toast.error(error.response.data.message);
-  //     }
-  //   };
+  const { setSearch } = useContext(Context);
 
   const searchItem = (e) => {
     e.preventDefault();
@@ -64,6 +45,8 @@ const Header = () => {
       setSearch(value);
     }
   };
+
+  const options = ["apple", "appoint", "zap", "cap", "japan"];
 
   return (
     <div className="header-cantainer">
@@ -82,7 +65,7 @@ const Header = () => {
               <Box>
                 <form onSubmit={searchItem}>
                   <HStack gap={[0, 0, 0, "1rem"]}>
-                    <InputGroup hidden={searchState}>
+                    {/* <InputGroup hidden={searchState}>
                       <Input
                         type="text"
                         placeholder="Search"
@@ -105,7 +88,54 @@ const Header = () => {
                           <CloseIcon fontSize={".8rem"} />
                         </Button>
                       </InputRightElement>
-                    </InputGroup>
+                    </InputGroup> */}
+                    <AutoComplete rollNavigation>
+                      {/* <InputGroup hidden={searchState}> */}
+                        <AutoCompleteInput
+                          variant="filled"
+                          placeholder="Search..."
+                          autoFocus
+                          value={value}
+                          onChange={(e) => {
+                            setValue(e.target.value);
+                          }}
+                          hidden={searchState}
+                          _dark={{
+                            bg: "gray.900",
+                            borderColor: "gray.600",
+                            color: "white",
+                          }}
+                        />
+                        {/* <InputRightElement h={"full"}>
+                          <Button
+                            variant={"ghost"}
+                            onClick={() => {
+                              setValue("");
+                            }}
+                            _focus={{ bg: "inherit" }}
+                            _active={{ bg: "inherit" }}
+                            _hover={{ bg: "inherit" }}
+                            hidden={value === "" ? true : false}
+                          >
+                            <CloseIcon fontSize={".8rem"} />
+                          </Button>
+                        </InputRightElement>
+                      </InputGroup> */}
+                      <AutoCompleteList>
+                        {options.map((option, oid) => (
+                          <AutoCompleteItem
+                            key={`option-${oid}`}
+                            value={option}
+                            textTransform="capitalize"
+                            onClick={(e) => {
+                              setValue(option);
+                            }}
+                          >
+                            {option}
+                          </AutoCompleteItem>
+                        ))}
+                      </AutoCompleteList>
+                    </AutoComplete>
                     <Button
                       type={"submit"}
                       bg={"inherit"}

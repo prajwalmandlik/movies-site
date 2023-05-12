@@ -10,6 +10,7 @@ const Home = () => {
   const { filter, search } = useContext(Context);
 
   let flag = true;
+  console.log(filter, search);
   if (filter === "All" && search === "") {
     flag = true;
     console.log("flag", flag);
@@ -19,7 +20,7 @@ const Home = () => {
   }
   return (
     <>
-      {flag ? (
+      { flag ? (
         <>
           <SwiperSlider title="Now Playing" key={1} data={nowPlaying} />
           <SwiperSlider title="Popular" key={2} data={popular} />
