@@ -23,7 +23,7 @@ const MoviesGrid = () => {
     <>
       <SimpleGrid m={4} columns={[3,3,4,5,8]} gap={4}>
         {data.map((item) => (
-          <Link href="/details/tt57738">
+          <Link href="/details/tt57738" key={item}>
             <Img
               css={{
                 "&:hover": {
