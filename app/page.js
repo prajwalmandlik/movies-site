@@ -1,12 +1,12 @@
-import Image from 'next/image'
 import { Suspense } from 'react'
 import Filter from '../components/Filter'
 import SwiperSlider from "./SwiperSlider"
+import Loading from "./loading";
 
 export default function Home() {
   return (
     <div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loading />}>
         <Filter />
         <SwiperSlider title="New" />
         <SwiperSlider title="Up Coming" />

@@ -5,7 +5,6 @@ import { Box, Button, HStack } from "@chakra-ui/react";
 const filterCategory = [
   "All",
   "Biography",
-  "Short",
   "Adventure",
   "Fantasy",
   "Animation",
