@@ -85,6 +85,7 @@ export default function SwiperSlider({ title }) {
                 objectFit={"cover"}
                 src={item}
                 borderRadius={6}
+                aspectRatio={"12/16"}
               />
             </Link>
           </SwiperSlide>

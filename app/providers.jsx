@@ -7,7 +7,7 @@ export function Providers({ children }) {
   return (
     <>
       <CacheProvider>
-        <ChakraProvider>{children}</ChakraProvider>
+        <ChakraProvider >{children}</ChakraProvider>
       </CacheProvider>
     </>
   );

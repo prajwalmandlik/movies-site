@@ -1,13 +1,13 @@
 import React, { Suspense } from "react";
 import Loading from "../../loading";
 import { movieData } from "../../Data"
-import MovieDatail from "../../../components/MovieDatail"
+import MovieDetail from "../../../components/MovieDetail"
 
 const page = () => {
   return (
     <>
       <Suspense fallback={<Loading />}>
-          <MovieDatail data={movieData} />
+          <MovieDetail data={movieData} />
       </Suspense>
     </>
   );

@@ -16,13 +16,14 @@ import {
   MenuItem,
   MenuList,
   Text,
+  useColorMode,
 } from "@chakra-ui/react";
 // import { Link, useNavigate } from "react-router-dom";
 // import { useDispatch, useSelector } from "react-redux";
 // import axios from "axios";
 // import { server } from "../..";
 // import { toast } from "react-hot-toast";
-import { CloseIcon, SearchIcon } from "@chakra-ui/icons";
+import { CloseIcon, MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { searchMovie } from "../components/Clients";
 
@@ -33,6 +34,7 @@ const Header = () => {
   const [value, setValue] = useState("");
   const [searchState, setSearchState] = useState(true);
   const login = false;
+  const { colorMode, toggleColorMode } = useColorMode();
   //   const navigate = useNavigate();
   //   const dispatch = useDispatch();
 
@@ -124,13 +126,20 @@ const Header = () => {
                   </HStack>
                 </form>
               </Box>
+              <Button onClick={toggleColorMode}>
+                {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+              </Button>
               <Box>
                 {login ? (
                   <User name={userData.name} />
                 ) : (
                   <>
                     <Link href="/auth">
-                      <Button variant="solid" colorScheme="blue">
+                      <Button
+                        borderRadius="full"
+                        variant="outline"
+                        colorScheme="blue"
+                      >
                         Sign In
                       </Button>
                     </Link>

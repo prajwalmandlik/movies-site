@@ -42,7 +42,7 @@ export const movieData = {
             "US"
         ],
         "directors": [
-            "Matt Reeves"
+            "Matt Reeves",
         ],
         "runtime": 177,
         "youtubeTrailerVideoId": "vc7_mH2PWHs",
