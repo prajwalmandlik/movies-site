@@ -16,9 +16,9 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const MovieDetail = ({ data }) => {
+const MovieDetail = ({ data, id }) => {
   const { result } = data;
-  const runtime = result.runtime;
+
   return (
     <>
       <VStack
@@ -32,7 +32,7 @@ const MovieDetail = ({ data }) => {
           <Heading as={"h2"}>{result.title}</Heading>
           <HStack>
             <Text>{result.year}</Text> <Text>{"-"} </Text>{" "}
-            <Text>{runtime}m</Text>
+            <Text>{result.runtime}m</Text>
           </HStack>
         </Box>
         <Stack direction={{ base: "column", md: "row" }}>

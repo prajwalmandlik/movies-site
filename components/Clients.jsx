@@ -1,23 +1,22 @@
-import { useState, createContext, useContext, useEffect } from "react";
-import { toast, Toaster } from "react-hot-toast";
+"use client";
+import { useState, createContext } from "react";
+import { Toaster } from "react-hot-toast";
 
-export const Context = createContext({ user: {} });
+export const Context = createContext({ user: {}, filter: "all", search: "" });
 export const ContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
-
-  //   useEffect(() => {
-  //     fetch("/api/auth/me")
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         if (data.success) setUser(data.user);
-  //       });
-  //   }, []);
+  const [filter, setFilter] = useState("all");
+  const [search, setSearch] = useState("");
 
   return (
     <Context.Provider
       value={{
         user,
         setUser,
+        filter,
+        setFilter,
+        search,
+        setSearch,
       }}
     >
       {children}
@@ -25,11 +24,3 @@ export const ContextProvider = ({ children }) => {
     </Context.Provider>
   );
 };
-
-export const searchMovie = (data) => {
-  console.log(data);
-};
-
-export const FilterMovie = (data) => {
-  console.log(data)
-}

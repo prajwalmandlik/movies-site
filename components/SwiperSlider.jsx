@@ -9,26 +9,11 @@ import { FreeMode, Navigation } from "swiper";
 import { Box, Heading, IconButton, Img } from "@chakra-ui/react";
 import Link from "next/link";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { displayMovie } from "../app/Data";
 
-const data = [
-  "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_.jpg",
-  "https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_.jpg",
-  "https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_.jpg",
-  "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_.jpg",
-  "https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_.jpg",
-  "https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_.jpg",
-  "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_.jpg",
-  "https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_.jpg",
-  "https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_.jpg",
-  "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_.jpg",
-  "https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_.jpg",
-  "https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_.jpg",
-];
-
-export default function SwiperSlider({ title }) {
+export default function SwiperSlider({ title, data }) {
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
-
   return (
     <Box m={4}>
       <Heading as={"h3"} fontSize="1.5rem" mb={4}>
@@ -71,8 +56,8 @@ export default function SwiperSlider({ title }) {
         className="mySwiper"
       >
         {data.map((item) => (
-          <SwiperSlide key={item}>
-            <Link href="/details/tt57738">
+          <SwiperSlide key={item.id}>
+            <Link href={`/details/${item.id}`}>
               <Img
                 css={{
                   "&:hover": {
@@ -83,7 +68,7 @@ export default function SwiperSlider({ title }) {
                 h={["10rem", "15rem"]}
                 w={"auto"}
                 objectFit={"cover"}
-                src={item}
+                src={`https://image.tmdb.org/t/p/w185${item.poster_path}`}
                 borderRadius={6}
                 aspectRatio={"12/16"}
               />
@@ -93,7 +78,7 @@ export default function SwiperSlider({ title }) {
         <Box>
           <IconButton
             icon={<ChevronLeftIcon />}
-            fontSize={["xl","2xl"]}
+            fontSize={["xl", "2xl"]}
             size={"md"}
             borderRadius={"50%"}
             ref={navigationPrevRef}
@@ -102,10 +87,13 @@ export default function SwiperSlider({ title }) {
             left={"1%"}
             zIndex={100}
             bg="whiteAlpha.800"
+            _dark={{
+              color: "black",
+            }}
           />
           <IconButton
             icon={<ChevronRightIcon />}
-            fontSize={["xl","2xl"]}
+            fontSize={["xl", "2xl"]}
             size={"md"}
             borderRadius={"50%"}
             ref={navigationNextRef}
@@ -114,6 +102,9 @@ export default function SwiperSlider({ title }) {
             right={"1%"}
             zIndex={100}
             bg="whiteAlpha.800"
+            _dark={{
+              color: "black",
+            }}
           />
         </Box>
       </Swiper>

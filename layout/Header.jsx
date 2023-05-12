@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Avatar,
   Box,
@@ -18,23 +18,17 @@ import {
   Text,
   useColorMode,
 } from "@chakra-ui/react";
-// import { Link, useNavigate } from "react-router-dom";
-// import { useDispatch, useSelector } from "react-redux";
-// import axios from "axios";
-// import { server } from "../..";
-// import { toast } from "react-hot-toast";
 import { CloseIcon, MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
 import Link from "next/link";
-import { searchMovie } from "../components/Clients";
+import { Context } from "../components/Clients";
 
 const Header = () => {
-  // const [mobileView, setMobileView] = useState(false);
-  //   const { login } = useSelector((state) => state.user);
-  //   const { userData } = useSelector((state) => state.user);
   const [value, setValue] = useState("");
   const [searchState, setSearchState] = useState(true);
   const login = false;
   const { colorMode, toggleColorMode } = useColorMode();
+  const { setSearch  } = useContext(Context);
+
   //   const navigate = useNavigate();
   //   const dispatch = useDispatch();
 
@@ -67,8 +61,7 @@ const Header = () => {
     if (value === "") {
       setSearchState((state) => !state);
     } else {
-      searchMovie(value);
-      // navigate("/");
+      setSearch(value);
     }
   };
 
@@ -127,7 +120,7 @@ const Header = () => {
                 </form>
               </Box>
               <Button onClick={toggleColorMode}>
-                {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
               <Box>
                 {login ? (

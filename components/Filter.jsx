@@ -1,33 +1,32 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Box, Button, HStack } from "@chakra-ui/react";
+import { Context } from "./Clients";
 
 const filterCategory = [
   "All",
-  "Biography",
-  "Adventure",
-  "Fantasy",
-  "Animation",
-  "Drama",
-  "Horror",
   "Action",
+  "Adventure",
+  "Animation",
   "Comedy",
-  "History",
-  "Thriller",
   "Crime",
-  "Documentary",
-  "Science Fiction",
-  "Mystery",
+  "Fantasy",
+  "History",
+  "Horror",
   "Romance",
+  "Science Fiction",
+  "Thriller",
   "War",
 ];
 
 const Filter = () => {
   const [selectedButton, setSelectedButton] = useState("All");
+  const { setFilter , setSearch  } = useContext(Context);
 
   const handleClick = (data) => {
     setSelectedButton(data);
-    console.log(data);
+    setFilter(data);
+    setSearch("");
   };
 
   return (
