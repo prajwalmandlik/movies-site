@@ -2,7 +2,7 @@
 import { Box, Img, SimpleGrid } from "@chakra-ui/react";
 import Link from "next/link";
 import React, { useContext } from "react";
-import { Movies } from "../app/Data";
+import  MoviesName  from "../Data/movieName.json";
 import { Context } from "./Clients";
 
 const MoviesGrid = () => {
@@ -12,7 +12,7 @@ const MoviesGrid = () => {
     data = search
     // data = Movies.filter(movie => new RegExp(search, 'i').test(movie.title));
   }else {
-    data = Movies.filter((item, index) => item.genre_ids.includes(filter));
+    data = MoviesName.filter((item, index) => item.genre_ids.includes(filter));
   }
 
   return (
@@ -20,7 +20,7 @@ const MoviesGrid = () => {
       
         <SimpleGrid m={4} columns={[3, 3, 4, 5, 8]} gap={4}>
           {data.map((item) => (
-            <Link href="/details/tt57738" key={item}>
+            <Link href={`/details/${item.movieID}`} key={item}>
               <Img
                 css={{
                   "&:hover": {

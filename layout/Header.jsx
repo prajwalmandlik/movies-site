@@ -28,33 +28,33 @@ import { Context } from "../components/Clients";
 //   AutoCompleteList,
 //   AutoCompleteFixedItem,
 // } from "@choc-ui/chakra-autocomplete";
-import { Movies } from "../app/Data";
+import  MoviesName  from "../Data/movieName.json";
 
 const Header = () => {
   const [value, setValue] = useState("");
   const [searchState, setSearchState] = useState(false);
   const login = false;
   const { colorMode, toggleColorMode } = useColorMode();
-  const { setSearch ,setFilter } = useContext(Context);
-  const [ option , setOption ] = useState([])
+  const { setSearch, setFilter } = useContext(Context);
+  const [option, setOption] = useState([]);
 
   const searchItem = (e) => {
     // e.preventDefault();
 
     setValue(e.target.value);
-    const options = Movies.filter((movie) =>
+    const options = MoviesName.filter((movie) =>
       new RegExp(value, "i").test(movie.title)
     );
-    setOption(options)
-    
+    setOption(options);
+
     if (value === "") {
-      setSearch("")
-      setFilter(0)
+      setSearch("");
+      setFilter(0);
     } else {
       setSearch(options);
     }
   };
- 
+
   return (
     <div className="header-cantainer">
       <Box px={[2, 2, 2, 10]}>
@@ -63,40 +63,46 @@ const Header = () => {
             <Link href="/">
               {" "}
               {/* <Image src={Logo} w={"150px"} h={"auto"} />{" "} */}
-              <Heading as={"h2"}>Moives </Heading>
+              <Heading
+                display={{ base: !searchState && "none", sm: "block" }}
+                as={"h2"}
+              >
+                Moives{" "}
+              </Heading>
             </Link>
           </Box>
 
           <Box>
             <HStack>
               <Box>
-                <form 
-                // onSubmit={searchItem}
-                >
-                  <HStack gap={[0, 0, 0, "1rem"]}>
-                    <InputGroup hidden={searchState}>
-                      <Input
-                        type="text"
-                        placeholder="Search"
-                        value={value}
-                        onChange={searchItem}
-                      />
-                      <InputRightElement h={"full"}>
-                        <Button
-                          variant={"ghost"}
-                          onClick={() => {
-                            setValue("");
-                          }}
-                          _focus={{ bg: "inherit" }}
-                          _active={{ bg: "inherit" }}
-                          _hover={{ bg: "inherit" }}
-                          hidden={value === "" ? true : false}
-                        >
-                          <CloseIcon fontSize={".8rem"} />
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
-                    {/* <AutoComplete rollNavigation>
+                <HStack gap={0}>
+                  <InputGroup hidden={searchState} >
+                    <Input
+                      type="text"
+                      placeholder="Search"
+                      value={value}
+                      onChange={searchItem}
+                      w={{ base: "65vw", sm: "25rem" }}
+                      _dark={{
+                        bg: "whiteAlpha.300",
+                      }}
+                    />
+                    <InputRightElement h={"full"}>
+                      <Button
+                        variant={"ghost"}
+                        onClick={() => {
+                          setValue("");
+                        }}
+                        _focus={{ bg: "inherit" }}
+                        _active={{ bg: "inherit" }}
+                        _hover={{ bg: "inherit" }}
+                        hidden={value === "" ? true : false}
+                      >
+                        <CloseIcon fontSize={".8rem"} />
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                  {/* <AutoComplete rollNavigation>
                       <InputGroup hidden={searchState}>
                       <AutoCompleteInput
                         variant="filled"
@@ -142,23 +148,27 @@ const Header = () => {
                         ))}
                       </AutoCompleteList>
                     </AutoComplete> */}
-                    <Button
-                      type={"submit"}
-                      bg={"inherit"}
-                      _focus={{ bg: "inherit" }}
-                      _active={{ bg: "inherit" }}
-                      _hover={{ bg: "inherit" }}
-                      px={[0, 0, "1rem"]}
-                    >
-                      <SearchIcon />
-                    </Button>
-                  </HStack>
-                </form>
+                  <Button
+                    bg={"inherit"}
+                    _focus={{ bg: "inherit" }}
+                    _active={{ bg: "inherit" }}
+                    _hover={{ bg: "inherit" }}
+                    px={[0, 0, "1rem"]}
+                    onClick={() => setSearchState(!searchState)}
+                  >
+                    <SearchIcon />
+                  </Button>
+                </HStack>
               </Box>
-              <Button onClick={toggleColorMode}>
+              <Button
+                onClick={toggleColorMode}
+                _focus={{ bg: "inherit" }}
+                _active={{ bg: "inherit" }}
+                _hover={{ bg: "inherit" }}
+              >
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
-              <Box>
+              <Box display={{ base: !searchState && "none", sm: "block" }}>
                 {login ? (
                   <User name={userData.name} />
                 ) : (

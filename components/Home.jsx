@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext } from "react";
-import { displayMovie } from "../app/Data";
+import  displayMovie  from "../Data/displayMovie.json";
 import { Context } from "./Clients";
 import SwiperSlider from "./SwiperSlider";
 import MoviesGrid from "./MoviesGrid";
@@ -10,13 +10,10 @@ const Home = () => {
   const { filter, search } = useContext(Context);
 
   let flag = true;
-  console.log(filter, search);
   if (filter === 0 && search === "") {
     flag = true;
-    console.log("flag", flag);
   } else {
     flag = false;
-    console.log("flag", flag);
   }
   return (
     <>

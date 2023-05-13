@@ -9,7 +9,7 @@ import { FreeMode, Navigation } from "swiper";
 import { Box, Heading, IconButton, Img } from "@chakra-ui/react";
 import Link from "next/link";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { displayMovie } from "../app/Data";
+import  displayMovie  from "../Data/displayMovie.json";
 
 export default function SwiperSlider({ title, data }) {
   const navigationPrevRef = useRef(null);
