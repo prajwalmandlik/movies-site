@@ -1,10 +1,16 @@
 "use client";
 import { Box, Button, Center, Heading, Img, Text } from "@chakra-ui/react";
 import React from "react";
+import { toast } from "react-hot-toast";
 // import app from "../firebase/firebaseConfig";
 import { FcGoogle } from 'react-icons/fc';
 
 const Login = () => {
+
+  const signInWithGoogle = () => {
+    toast.error("Sign in with Google is not available at the moment")
+  }
+
   return (
     <>
       <Box>
@@ -35,7 +41,7 @@ const Login = () => {
               maxW={"md"}
               variant={"outline"}
               leftIcon={<FcGoogle />}
-              onClick={() => signInWithGoogle }
+              onClick={signInWithGoogle}
             >
               <Center>
                 <Text>Sign in with Google</Text>
