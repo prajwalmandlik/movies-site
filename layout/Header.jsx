@@ -21,18 +21,18 @@ import {
 import { CloseIcon, MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { Context } from "../components/Clients";
-import {
-  AutoComplete,
-  AutoCompleteInput,
-  AutoCompleteItem,
-  AutoCompleteList,
-  AutoCompleteFixedItem,
-} from "@choc-ui/chakra-autocomplete";
+// import {
+//   AutoComplete,
+//   AutoCompleteInput,
+//   AutoCompleteItem,
+//   AutoCompleteList,
+//   AutoCompleteFixedItem,
+// } from "@choc-ui/chakra-autocomplete";
 import { Movies } from "../app/Data";
 
 const Header = () => {
   const [value, setValue] = useState("");
-  const [searchState, setSearchState] = useState(true);
+  const [searchState, setSearchState] = useState(false);
   const login = false;
   const { colorMode, toggleColorMode } = useColorMode();
   const { setSearch ,setFilter } = useContext(Context);
@@ -74,14 +74,12 @@ const Header = () => {
                 // onSubmit={searchItem}
                 >
                   <HStack gap={[0, 0, 0, "1rem"]}>
-                    {/* <InputGroup hidden={searchState}>
+                    <InputGroup hidden={searchState}>
                       <Input
                         type="text"
                         placeholder="Search"
                         value={value}
-                        onChange={(e) => {
-                          setValue(e.target.value);
-                        }}
+                        onChange={searchItem}
                       />
                       <InputRightElement h={"full"}>
                         <Button
@@ -97,23 +95,23 @@ const Header = () => {
                           <CloseIcon fontSize={".8rem"} />
                         </Button>
                       </InputRightElement>
-                    </InputGroup> */}
-                    <AutoComplete rollNavigation>
-                      {/* <InputGroup hidden={searchState}> */}
+                    </InputGroup>
+                    {/* <AutoComplete rollNavigation>
+                      <InputGroup hidden={searchState}>
                       <AutoCompleteInput
                         variant="filled"
                         placeholder="Search..."
                         autoFocus
                         value={value}
                         onChange={searchItem}
-                        // hidden={searchState}
+                        hidden={searchState}
                         _dark={{
                           bg: "gray.900",
                           borderColor: "gray.600",
                           color: "white",
                         }}
                       />
-                      {/* <InputRightElement h={"full"}>
+                      <InputRightElement h={"full"}>
                           <Button
                             variant={"ghost"}
                             onClick={() => {
@@ -127,7 +125,7 @@ const Header = () => {
                             <CloseIcon fontSize={".8rem"} />
                           </Button>
                         </InputRightElement>
-                      </InputGroup> */}
+                      </InputGroup>
                       <AutoCompleteList>
                         {option.map((ele, oid) => (
                           <AutoCompleteItem
@@ -143,7 +141,7 @@ const Header = () => {
                           </AutoCompleteItem>
                         ))}
                       </AutoCompleteList>
-                    </AutoComplete>
+                    </AutoComplete> */}
                     <Button
                       type={"submit"}
                       bg={"inherit"}
