@@ -2,19 +2,19 @@
 import { Box, Button, Center, Heading, Img, Text } from "@chakra-ui/react";
 import React from "react";
 import { toast } from "react-hot-toast";
-// import app from "../firebase/firebaseConfig";
-import { FcGoogle } from 'react-icons/fc';
+import { FcGoogle } from "react-icons/fc";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const Login = () => {
-
   const signInWithGoogle = () => {
-    toast.error("Sign in with Google is not available at the moment")
-  }
+    toast.error("Sign in with Google is not available at the moment");
+  };
 
   return (
     <>
       <Box>
-        <Box h={"70vh"}>
+        <Box h={"75vh"}>
           <Img
             src={`https://wallpaperaccess.com/full/4839516.jpg`}
             filter={"brightness(0.5)"}
@@ -32,16 +32,22 @@ const Login = () => {
           color={"white"}
         >
           <Heading as={"h2"} size="3xl">
-            Movies
+            Sign In
           </Heading>
 
-          <Center mt={4} >
+          <Center mt={10}>
             <Button
               w={"full"}
               maxW={"md"}
+              bg={"white"}
+              color={"black"}
               variant={"outline"}
+              _hover={{ bg: "WhiteSmoke" }}
               leftIcon={<FcGoogle />}
-              onClick={signInWithGoogle}
+              onClick={() => {
+                signIn("google");
+                useRouter.push("/");
+              }}
             >
               <Center>
                 <Text>Sign in with Google</Text>

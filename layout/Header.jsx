@@ -21,6 +21,7 @@ import {
 import { CloseIcon, MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { Context } from "../components/Clients";
+import { useSession, signOut } from "next-auth/react";
 // import {
 //   AutoComplete,
 //   AutoCompleteInput,
@@ -38,9 +39,11 @@ const Header = () => {
   const { setSearch, setFilter } = useContext(Context);
   const [option, setOption] = useState([]);
 
+  const { data } = useSession();
+  
+
   const searchItem = (e) => {
     // e.preventDefault();
-
     setValue(e.target.value);
     const options = MoviesName.filter((movie) =>
       new RegExp(value, "i").test(movie.title)
@@ -169,8 +172,8 @@ const Header = () => {
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
               <Box display={{ base: !searchState && "none", sm: "block" }}>
-                {login ? (
-                  <User name={userData.name} />
+                { (useSession && data) ? (
+                  <User user={data?.user} />
                 ) : (
                   <>
                     <Link href="/auth">
@@ -193,7 +196,8 @@ const Header = () => {
   );
 };
 
-const User = ({ name }) => {
+const User = ({ user }) => {
+  const { name , image } = user;
   const firstName = name.split(" ")[0];
 
   return (
@@ -201,15 +205,12 @@ const User = ({ name }) => {
       <Menu>
         <MenuButton>
           <HStack>
-            <Avatar size="sm" name={name} />
-            <Text>{firstName.toUpperCase()}</Text>
+            <Avatar size="sm" name={name} src={image} />
+            <Text>{firstName}</Text>
           </HStack>
         </MenuButton>
         <MenuList m={"0 2rem"} minW={"3rem"}>
-          <Link to={`/profile`}>
-            <MenuItem>Profile</MenuItem>
-          </Link>
-          <MenuItem onClick={logOut}>Log out</MenuItem>
+          <MenuItem onClick={() => signOut()}>Log out</MenuItem>
         </MenuList>
       </Menu>
     </>
