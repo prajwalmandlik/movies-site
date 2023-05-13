@@ -27,27 +27,34 @@ import {
   AutoCompleteItem,
   AutoCompleteList,
   AutoCompleteFixedItem,
-} from '@choc-ui/chakra-autocomplete';
+} from "@choc-ui/chakra-autocomplete";
+import { Movies } from "../app/Data";
 
 const Header = () => {
   const [value, setValue] = useState("");
   const [searchState, setSearchState] = useState(true);
   const login = false;
   const { colorMode, toggleColorMode } = useColorMode();
-  const { setSearch } = useContext(Context);
+  const { setSearch ,setFilter } = useContext(Context);
+  const [ option , setOption ] = useState([])
 
   const searchItem = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
+    setValue(e.target.value);
+    const options = Movies.filter((movie) =>
+      new RegExp(value, "i").test(movie.title)
+    );
+    setOption(options)
+    
     if (value === "") {
-      setSearchState((state) => !state);
+      setSearch("")
+      setFilter(0)
     } else {
-      setSearch(value);
+      setSearch(options);
     }
   };
-
-  const options = ["apple", "appoint", "zap", "cap", "japan"];
-
+ 
   return (
     <div className="header-cantainer">
       <Box px={[2, 2, 2, 10]}>
@@ -63,7 +70,9 @@ const Header = () => {
           <Box>
             <HStack>
               <Box>
-                <form onSubmit={searchItem}>
+                <form 
+                // onSubmit={searchItem}
+                >
                   <HStack gap={[0, 0, 0, "1rem"]}>
                     {/* <InputGroup hidden={searchState}>
                       <Input
@@ -91,22 +100,20 @@ const Header = () => {
                     </InputGroup> */}
                     <AutoComplete rollNavigation>
                       {/* <InputGroup hidden={searchState}> */}
-                        <AutoCompleteInput
-                          variant="filled"
-                          placeholder="Search..."
-                          autoFocus
-                          value={value}
-                          onChange={(e) => {
-                            setValue(e.target.value);
-                          }}
-                          hidden={searchState}
-                          _dark={{
-                            bg: "gray.900",
-                            borderColor: "gray.600",
-                            color: "white",
-                          }}
-                        />
-                        {/* <InputRightElement h={"full"}>
+                      <AutoCompleteInput
+                        variant="filled"
+                        placeholder="Search..."
+                        autoFocus
+                        value={value}
+                        onChange={searchItem}
+                        // hidden={searchState}
+                        _dark={{
+                          bg: "gray.900",
+                          borderColor: "gray.600",
+                          color: "white",
+                        }}
+                      />
+                      {/* <InputRightElement h={"full"}>
                           <Button
                             variant={"ghost"}
                             onClick={() => {
@@ -122,16 +129,17 @@ const Header = () => {
                         </InputRightElement>
                       </InputGroup> */}
                       <AutoCompleteList>
-                        {options.map((option, oid) => (
+                        {option.map((ele, oid) => (
                           <AutoCompleteItem
                             key={`option-${oid}`}
-                            value={option}
+                            value={ele.title}
                             textTransform="capitalize"
                             onClick={(e) => {
-                              setValue(option);
+                              setSearch([ele]);
+                              // console.log(ele)
                             }}
                           >
-                            {option}
+                            {ele.title}
                           </AutoCompleteItem>
                         ))}
                       </AutoCompleteList>

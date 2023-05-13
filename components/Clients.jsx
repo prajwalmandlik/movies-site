@@ -2,10 +2,10 @@
 import { useState, createContext } from "react";
 import { Toaster } from "react-hot-toast";
 
-export const Context = createContext({ user: {}, filter: "All", search: "" });
+export const Context = createContext({ user: {}, filter: 0, search: "" });
 export const ContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
-  const [filter, setFilter] = useState("All");
+  const [filter, setFilter] = useState(0);
   const [search, setSearch] = useState("");
 
   return (

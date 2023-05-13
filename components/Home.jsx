@@ -11,7 +11,7 @@ const Home = () => {
 
   let flag = true;
   console.log(filter, search);
-  if (filter === "All" && search === "") {
+  if (filter === 0 && search === "") {
     flag = true;
     console.log("flag", flag);
   } else {

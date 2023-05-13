@@ -4,20 +4,62 @@ import { Box, Button, HStack } from "@chakra-ui/react";
 import { Context } from "./Clients";
 
 const filterCategory = [
-  "All",
-  "Action",
-  "Adventure",
-  "Animation",
-  "Comedy",
-  "Crime",
-  "Fantasy",
-  "History",
-  "Horror",
-  "Romance",
-  "Science Fiction",
-  "Thriller",
-  "War",
+  {
+    "id": 0,
+    "name" : "All"
+  },
+  {
+    "id": 28,
+    "name": "Action"
+  },
+  {
+    "id": 12,
+    "name": "Adventure"
+  },
+  {
+    "id": 16,
+    "name": "Animation"
+  },
+  {
+    "id": 35,
+    "name": "Comedy"
+  },
+  {
+    "id": 80,
+    "name": "Crime"
+  },
+  {
+    "id": 14,
+    "name": "Fantasy"
+  },
+  {
+    "id": 36,
+    "name": "History"
+  },
+  {
+    "id": 27,
+    "name": "Horror"
+  },
+  {
+    "id": 10749,
+    "name": "Romance"
+  },
+  {
+    "id": 878,
+    "name": "Science Fiction"
+  },
+  
+  {
+    "id": 53,
+    "name": "Thriller"
+  },
+  {
+    "id": 10752,
+    "name": "War"
+  },
+  
 ];
+
 
 const Filter = () => {
   const [selectedButton, setSelectedButton] = useState("All");
@@ -55,9 +97,9 @@ const Filter = () => {
             variant={selectedButton === ele ? "solid" : "outline"}
             minW="auto"
             px="2rem"
-            onClick={() => handleClick(ele)}
+            onClick={() => handleClick(ele.id)}
           >
-            {ele}
+            {ele.name}
           </Button>
         ))}
       </HStack>
