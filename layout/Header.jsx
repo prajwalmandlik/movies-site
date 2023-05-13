@@ -32,7 +32,7 @@ import  MoviesName  from "../Data/movieName.json";
 
 const Header = () => {
   const [value, setValue] = useState("");
-  const [searchState, setSearchState] = useState(false);
+  const [searchState, setSearchState] = useState(true);
   const login = false;
   const { colorMode, toggleColorMode } = useColorMode();
   const { setSearch, setFilter } = useContext(Context);
