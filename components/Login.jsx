@@ -46,7 +46,7 @@ const Login = () => {
               leftIcon={<FcGoogle />}
               onClick={() => {
                 signIn("google");
-                useRouter.push("/");
+                router.push("/");
               }}
             >
               <Center>
