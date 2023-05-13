@@ -1,16 +1,10 @@
 "use client";
 import { Box, Button, Center, Heading, Img, Text } from "@chakra-ui/react";
 import React from "react";
-import { toast } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
-import { useSession, signIn, signOut } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useSession, signIn } from "next-auth/react";
 
 const Login = () => {
-  const signInWithGoogle = () => {
-    toast.error("Sign in with Google is not available at the moment");
-  };
-
   return (
     <>
       <Box>
@@ -45,9 +39,9 @@ const Login = () => {
               _hover={{ bg: "WhiteSmoke" }}
               leftIcon={<FcGoogle />}
               onClick={() => {
-                signIn("google");
-                router.push("/");
+                signIn("google")
               }}
+              disabled={ useSession() }
             >
               <Center>
                 <Text>Sign in with Google</Text>

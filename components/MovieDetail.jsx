@@ -29,8 +29,16 @@ const MovieDetail = ({ data, id }) => {
             h={"100%"}
           />
         </Box>
-        <Box position={"absolute"} top={"35%"} left={"10%"} zIndex="100" color={"white"} >
-          <Heading as={"h2"} size="3xl" >{data.original_title} </Heading>
+        <Box
+          position={"absolute"}
+          top={["30%" , "35%"]}
+          left={["5%", "10%"]}
+          zIndex="100"
+          color={"white"}
+        >
+          <Heading as={"h2"} size="3xl">
+            {data.original_title}{" "}
+          </Heading>
           <HStack>
             <Text>{data.release_date.split("-")[0]}</Text> <Text>{"-"} </Text>{" "}
             <Text>{data.runtime}m</Text>
@@ -67,18 +75,33 @@ const MovieDetail = ({ data, id }) => {
             w={"7rem"}
           />
           <Box>
-            <HStack my={2}>
+            <HStack my={2} wrap="wrap" rowGap={4}>
               {data.genres.map((ele) => (
                 <Tag size="lg" borderRadius="full" key={ele.id}>
                   {ele.name}
                 </Tag>
               ))}
             </HStack>
-            <Text fontSize={"1.2rem"} maxW={"50rem"}>
+            <Text
+              fontSize={"1.2rem"}
+              maxW={"50rem"}
+              display={["none", "block"]}
+            >
               {data.overview}
             </Text>
           </Box>
         </HStack>
+
+        <Box>
+          <Text
+            fontSize={"1rem"}
+            maxW={"50rem"}
+            display={["black", "none"]}
+            textAlign={"justify"}
+          >
+            {data.overview}
+          </Text>
+        </Box>
         <Divider />
 
         <HStack gap={6} alignItems={"flex-start"}>
