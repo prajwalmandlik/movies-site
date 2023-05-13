@@ -23,13 +23,13 @@ const MovieDetail = ({ data, id }) => {
         <Box h={"70vh"}>
           <Img
             src={`https://image.tmdb.org/t/p/w780${data.backdrop_path}`}
-            filter={"brightness(0.7)"}
+            filter={"brightness(0.5)"}
             objectFit="cover"
             w={"100%"}
             h={"100%"}
           />
         </Box>
-        <Box position={"absolute"} top={"35%"} left={"10%"} zIndex="100" >
+        <Box position={"absolute"} top={"35%"} left={"10%"} zIndex="100" color={"white"} >
           <Heading as={"h2"} size="3xl" >{data.original_title} </Heading>
           <HStack>
             <Text>{data.release_date.split("-")[0]}</Text> <Text>{"-"} </Text>{" "}
