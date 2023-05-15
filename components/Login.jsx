@@ -3,8 +3,17 @@ import { Box, Button, Center, Heading, Img, Text } from "@chakra-ui/react";
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
+const router = useRouter();
+const { data } = useSession();
+
+
+if(data){
+  router.push("/")
+}
+
   return (
     <>
       <Box>

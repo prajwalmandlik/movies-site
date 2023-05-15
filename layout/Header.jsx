@@ -27,20 +27,19 @@ import {
   AutoCompleteInput,
   AutoCompleteItem,
   AutoCompleteList,
-  AutoCompleteFixedItem,
 } from "@choc-ui/chakra-autocomplete";
-import  MoviesName  from "../Data/movieName.json";
+import MoviesName from "../Data/movieName.json";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [value, setValue] = useState("");
   const [searchState, setSearchState] = useState(true);
-  const login = false;
   const { colorMode, toggleColorMode } = useColorMode();
   const { setSearch, setFilter } = useContext(Context);
   const [option, setOption] = useState([]);
+  const router = useRouter();
 
   const { data } = useSession();
-  
 
   const searchItem = (e) => {
     // e.preventDefault();
@@ -48,6 +47,7 @@ const Header = () => {
     const options = MoviesName.filter((movie) =>
       new RegExp(value, "i").test(movie.title)
     );
+    router.push("/");
     setOption(options);
 
     if (value === "") {
@@ -69,7 +69,7 @@ const Header = () => {
               <Heading
                 display={{ base: !searchState && "none", sm: "block" }}
                 as={"h2"}
-                fontSize={["1.5rem","2rem"]}
+                fontSize={["1.5rem", "2rem"]}
               >
                 Moives Scout
               </Heading>
@@ -107,7 +107,7 @@ const Header = () => {
                     </InputRightElement>
                   </InputGroup> */}
                   <AutoComplete rollNavigation>
-                      <InputGroup hidden={searchState}>
+                    <InputGroup hidden={searchState}>
                       <AutoCompleteInput
                         variant="filled"
                         placeholder="Search..."
@@ -122,36 +122,36 @@ const Header = () => {
                         }}
                       />
                       <InputRightElement h={"full"}>
-                          <Button
-                            variant={"ghost"}
-                            onClick={() => {
-                              setValue("");
-                            }}
-                            _focus={{ bg: "inherit" }}
-                            _active={{ bg: "inherit" }}
-                            _hover={{ bg: "inherit" }}
-                            hidden={value === "" ? true : false}
-                          >
-                            <CloseIcon fontSize={".8rem"} />
-                          </Button>
-                        </InputRightElement>
-                      </InputGroup>
-                      <AutoCompleteList>
-                        {option.map((ele, oid) => (
-                          <AutoCompleteItem
-                            key={`option-${oid}`}
-                            value={ele.title}
-                            textTransform="capitalize"
-                            onClick={(e) => {
-                              setSearch([ele]);
-                              // console.log(ele)
-                            }}
-                          >
-                            {ele.title}
-                          </AutoCompleteItem>
-                        ))}
-                      </AutoCompleteList>
-                    </AutoComplete>
+                        <Button
+                          variant={"ghost"}
+                          onClick={() => {
+                            setValue("");
+                          }}
+                          _focus={{ bg: "inherit" }}
+                          _active={{ bg: "inherit" }}
+                          _hover={{ bg: "inherit" }}
+                          hidden={value === "" ? true : false}
+                        >
+                          <CloseIcon fontSize={".8rem"} />
+                        </Button>
+                      </InputRightElement>
+                    </InputGroup>
+                    <AutoCompleteList>
+                      {option.map((ele, oid) => (
+                        <AutoCompleteItem
+                          key={`option-${oid}`}
+                          value={ele.title}
+                          textTransform="capitalize"
+                          onClick={(e) => {
+                            setSearch([ele]);
+                            // console.log(ele)
+                          }}
+                        >
+                          <Link href={"/"}>{ele.title}</Link>
+                        </AutoCompleteItem>
+                      ))}
+                    </AutoCompleteList>
+                  </AutoComplete>
                   <Button
                     bg={"inherit"}
                     _focus={{ bg: "inherit" }}
@@ -173,7 +173,7 @@ const Header = () => {
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
               <Box display={{ base: !searchState && "none", sm: "block" }}>
-                { (useSession && data) ? (
+                {useSession && data ? (
                   <User user={data?.user} />
                 ) : (
                   <>
@@ -198,7 +198,7 @@ const Header = () => {
 };
 
 const User = ({ user }) => {
-  const { name , image } = user;
+  const { name, image } = user;
   const firstName = name.split(" ")[0];
 
   return (
