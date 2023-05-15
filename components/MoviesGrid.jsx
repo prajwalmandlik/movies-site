@@ -1,5 +1,5 @@
 "use client";
-import { Box, Img, SimpleGrid } from "@chakra-ui/react";
+import { Box, Center, Img, SimpleGrid, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import React, { useContext } from "react";
 import  MoviesName  from "../Data/movieName.json";
@@ -15,9 +15,13 @@ const MoviesGrid = () => {
     data = MoviesName.filter((item, index) => item.genre_ids.includes(filter));
   }
 
+
+  console.log(data)
   return (
     <>
-      
+      {
+        data.length === 0  && <><Center h={"50vh"}><Text>No Movies Found </Text></Center></>
+      }
         <SimpleGrid m={4} columns={[3, 3, 4, 5, 8]} gap={4}>
           {data.map((item) => (
             <Link href={`/details/${item.movieID}`} key={item}>
