@@ -22,13 +22,13 @@ import { CloseIcon, MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { Context } from "../components/Clients";
 import { useSession, signOut } from "next-auth/react";
-// import {
-//   AutoComplete,
-//   AutoCompleteInput,
-//   AutoCompleteItem,
-//   AutoCompleteList,
-//   AutoCompleteFixedItem,
-// } from "@choc-ui/chakra-autocomplete";
+import {
+  AutoComplete,
+  AutoCompleteInput,
+  AutoCompleteItem,
+  AutoCompleteList,
+  AutoCompleteFixedItem,
+} from "@choc-ui/chakra-autocomplete";
 import  MoviesName  from "../Data/movieName.json";
 
 const Header = () => {
@@ -80,7 +80,7 @@ const Header = () => {
             <HStack>
               <Box>
                 <HStack gap={0}>
-                  <InputGroup hidden={searchState} >
+                  {/* <InputGroup hidden={searchState} >
                     <Input
                       type="text"
                       placeholder="Search"
@@ -105,8 +105,8 @@ const Header = () => {
                         <CloseIcon fontSize={".8rem"} />
                       </Button>
                     </InputRightElement>
-                  </InputGroup>
-                  {/* <AutoComplete rollNavigation>
+                  </InputGroup> */}
+                  <AutoComplete rollNavigation>
                       <InputGroup hidden={searchState}>
                       <AutoCompleteInput
                         variant="filled"
@@ -151,7 +151,7 @@ const Header = () => {
                           </AutoCompleteItem>
                         ))}
                       </AutoCompleteList>
-                    </AutoComplete> */}
+                    </AutoComplete>
                   <Button
                     bg={"inherit"}
                     _focus={{ bg: "inherit" }}
