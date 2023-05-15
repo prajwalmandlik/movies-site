@@ -16,7 +16,7 @@ const MoviesGrid = () => {
   }
 
 
-  console.log(data)
+
   return (
     <>
       {
