@@ -27,6 +27,7 @@ const MovieDetail = ({ data, id }) => {
             objectFit="cover"
             w={"100%"}
             h={"100%"}
+            alt={data.original_title}
           />
         </Box>
         <Box

@@ -69,8 +69,9 @@ const Header = () => {
               <Heading
                 display={{ base: !searchState && "none", sm: "block" }}
                 as={"h2"}
+                fontSize={["1.5rem","2rem"]}
               >
-                Moives{" "}
+                Moives Scout
               </Heading>
             </Link>
           </Box>

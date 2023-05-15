@@ -78,7 +78,7 @@ import {
           justify={"center"}
           align={"center"}
         >
-          <Text fontSize={"1.5rem"} fontWeight={"700"} >Movie </Text>
+          <Text fontSize={"1.5rem"} fontWeight={"700"} >Movie Scout</Text>
         </Container>
   
         <Box

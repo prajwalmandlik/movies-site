@@ -71,6 +71,7 @@ export default function SwiperSlider({ title, data }) {
                 src={`https://image.tmdb.org/t/p/w185${item.poster_path}`}
                 borderRadius={6}
                 aspectRatio={"12/16"}
+                alt={item.id}
               />
             </Link>
           </SwiperSlide>
