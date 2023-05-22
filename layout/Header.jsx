@@ -1,16 +1,12 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Avatar,
   Box,
   Button,
   Heading,
   HStack,
-  Image,
-  Input,
-  InputGroup,
-  InputRightElement,
   Menu,
   MenuButton,
   MenuItem,
@@ -30,37 +26,65 @@ import {
 } from "@choc-ui/chakra-autocomplete";
 import MoviesName from "../Data/movieName.json";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const Header = () => {
   const [value, setValue] = useState("");
   const [searchState, setSearchState] = useState(true);
   const { colorMode, toggleColorMode } = useColorMode();
-  const { setSearch, setFilter } = useContext(Context);
+  const { setMoviesList } = useContext(Context);
   const [option, setOption] = useState([]);
   const router = useRouter();
 
   const { data } = useSession();
 
-  const searchItem = (e) => {
-    // e.preventDefault();
-    setValue(e.target.value);
-    const options = MoviesName.filter((movie) =>
-      new RegExp(value, "i").test(movie.title)
-    );
-    router.push("/");
-    setOption(options);
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      url: "https://api.themoviedb.org/3/search/movie",
+      params: {
+        query: value,
+        include_adult: "false",
+        language: "en-US",
+        page: "1",
+        region: 'us'
+      },
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzZDI5OWVkMzVkYjczZDYxNDA4ZmI2NjQ2ODNhYmFhMiIsInN1YiI6IjY0NTU1YjA2NzEwODNhMDEwMTNjNmVlNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Ep066w3z1Uob-auK4zteLYbtO-Rv2msX7-QO7Wru0y4",
+      },
+    };
 
+    axios
+      .request(options)
+      .then(function (response) {
+        setOption(response.data.results);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }, [value]);
+
+  const searchItem = (e) => {
+    e.preventDefault();
+    setValue(e.target.value);
+    // const options = MoviesName.filter((movie) =>
+    //   new RegExp(value, "i").test(movie.title)
+    // );
+
+    router.push("/");
     if (value === "") {
-      setSearch("");
-      setFilter(0);
+      setMoviesList([])
     } else {
-      setSearch(options);
+      setMoviesList(option);
+      // console.log(option);
     }
   };
 
   return (
     <div className="header-cantainer">
-      <Box px={[2, 2, 2, 10]}>
+      <Box px={[2, 2, 2, 10]} w={"100%"}>
         <HStack h={16} alignItems={"center"} justifyContent={"space-between"}>
           <Box>
             <Link href="/">
@@ -80,74 +104,28 @@ const Header = () => {
             <HStack>
               <Box>
                 <HStack gap={0}>
-                  {/* <InputGroup hidden={searchState} >
-                    <Input
-                      type="text"
-                      placeholder="Search"
+                  <AutoComplete rollNavigation>
+                    <AutoCompleteInput
+                      variant="filled"
+                      placeholder="Search..."
+                      autoFocus
                       value={value}
                       onChange={searchItem}
-                      w={{ base: "65vw", sm: "25rem" }}
+                      hidden={searchState}
                       _dark={{
-                        bg: "whiteAlpha.300",
+                        bg: "gray.900",
+                        borderColor: "gray.600",
+                        color: "white",
                       }}
                     />
-                    <InputRightElement h={"full"}>
-                      <Button
-                        variant={"ghost"}
-                        onClick={() => {
-                          setValue("");
-                        }}
-                        _focus={{ bg: "inherit" }}
-                        _active={{ bg: "inherit" }}
-                        _hover={{ bg: "inherit" }}
-                        hidden={value === "" ? true : false}
-                      >
-                        <CloseIcon fontSize={".8rem"} />
-                      </Button>
-                    </InputRightElement>
-                  </InputGroup> */}
-                  <AutoComplete rollNavigation>
-                    <InputGroup hidden={searchState}>
-                      <AutoCompleteInput
-                        variant="filled"
-                        placeholder="Search..."
-                        autoFocus
-                        value={value}
-                        onChange={searchItem}
-                        hidden={searchState}
-                        _dark={{
-                          bg: "gray.900",
-                          borderColor: "gray.600",
-                          color: "white",
-                        }}
-                      />
-                      <InputRightElement h={"full"}>
-                        <Button
-                          variant={"ghost"}
-                          onClick={() => {
-                            setValue("");
-                          }}
-                          _focus={{ bg: "inherit" }}
-                          _active={{ bg: "inherit" }}
-                          _hover={{ bg: "inherit" }}
-                          hidden={value === "" ? true : false}
-                        >
-                          <CloseIcon fontSize={".8rem"} />
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
                     <AutoCompleteList>
                       {option.map((ele, oid) => (
                         <AutoCompleteItem
                           key={`option-${oid}`}
                           value={ele.title}
                           textTransform="capitalize"
-                          onClick={(e) => {
-                            setSearch([ele]);
-                            // console.log(ele)
-                          }}
                         >
-                          <Link href={"/"}>{ele.title}</Link>
+                          <Link href={`/details/${ele.id}`}>{ele.title}</Link>
                         </AutoCompleteItem>
                       ))}
                     </AutoCompleteList>

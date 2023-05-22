@@ -63,12 +63,15 @@ const filterCategory = [
 
 const Filter = () => {
   const [selectedButton, setSelectedButton] = useState("All");
-  const { setFilter , setSearch  } = useContext(Context);
+  const { setMoviesList  } = useContext(Context);
 
   const handleClick = (data) => {
     setSelectedButton(data);
-    setFilter(data);
-    setSearch("");
+    if(data === 0 ){
+      setMoviesList(null)
+    }else{
+      setMoviesList([])
+    }
   };
 
   return (

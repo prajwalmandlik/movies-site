@@ -1,30 +1,23 @@
 "use client";
 import { Box, Center, Img, SimpleGrid, Text } from "@chakra-ui/react";
 import Link from "next/link";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import  MoviesName  from "../Data/movieName.json";
 import { Context } from "./Clients";
 
 const MoviesGrid = () => {
-  const { filter, search } = useContext(Context);
-  let data = [];
-  if (search !== "") {
-    data = search
-    // data = Movies.filter(movie => new RegExp(search, 'i').test(movie.title));
-  }else {
-    data = MoviesName.filter((item, index) => item.genre_ids.includes(filter));
-  }
-
+  const { moviesList } = useContext(Context);
+  const data = moviesList;
 
 
   return (
     <>
       {
-        data.length === 0  && <><Center h={"50vh"}><Text>No Movies Found </Text></Center></>
+        (data === [])  && <><Center h={"50vh"}><Text>No Movies Found </Text></Center></>
       }
         <SimpleGrid m={4} columns={[3, 3, 4, 5, 8]} gap={4}>
           {data.map((item) => (
-            <Link href={`/details/${item.movieID}`} key={item}>
+            <Link href={`/details/${item.id}`} key={item}>
               <Img
                 css={{
                   "&:hover": {
