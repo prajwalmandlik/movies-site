@@ -14,7 +14,7 @@ import {
   Text,
   useColorMode,
 } from "@chakra-ui/react";
-import { CloseIcon, MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
+import { MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { Context } from "../components/Clients";
 import { useSession, signOut } from "next-auth/react";
@@ -32,13 +32,14 @@ const Header = () => {
   const [value, setValue] = useState("");
   const [searchState, setSearchState] = useState(true);
   const { colorMode, toggleColorMode } = useColorMode();
-  const { setMoviesList } = useContext(Context);
+  const { setMoviesList, setLoading } = useContext(Context);
   const [option, setOption] = useState([]);
   const router = useRouter();
 
   const { data } = useSession();
 
   useEffect(() => {
+    setLoading(true);
     const options = {
       method: "GET",
       url: "https://api.themoviedb.org/3/search/movie",
@@ -60,9 +61,11 @@ const Header = () => {
       .request(options)
       .then(function (response) {
         setOption(response.data.results);
+        setLoading(false);
       })
       .catch(function (error) {
         console.error(error);
+        setLoading(false);
       });
   }, [value]);
 

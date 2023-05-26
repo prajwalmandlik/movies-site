@@ -13,10 +13,10 @@ const MoviesGrid = () => {
   return (
     <>
       {
-        (data === [])  && <><Center h={"50vh"}><Text>No Movies Found </Text></Center></>
+        (data?.length === 0 )  && <><Center h={"50vh"}><Text>No Movies Found </Text></Center></>
       }
         <SimpleGrid m={4} columns={[3, 3, 4, 5, 8]} gap={4}>
-          {data.map((item) => (
+          {data?.map((item) => (
             <Link href={`/details/${item.id}`} key={item}>
               <Img
                 css={{
