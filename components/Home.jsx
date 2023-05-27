@@ -28,10 +28,10 @@ const Home = () => {
         <Box minH={"70vh"}>
           {flag ? (
             <>
-              <SwiperSlider title="Now Playing" key={1} data={nowPlaying} />
-              <SwiperSlider title="Popular" key={2} data={popular} />
-              <SwiperSlider title="Top Rated" key={3} data={topRated} />
-              <SwiperSlider title="Upcoming" key={4} data={upcoming} />
+              <SwiperSlider title="Now Playing" key={1}  category={"now_playing"} />
+              <SwiperSlider title="Popular" key={2} category={"popular"} />
+              <SwiperSlider title="Top Rated" key={3}  category={"top_rated"} />
+              <SwiperSlider title="Upcoming" key={4}  category={"upcoming"} />
             </>
           ) : (
             <MoviesGrid />
