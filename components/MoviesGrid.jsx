@@ -1,8 +1,7 @@
 "use client";
-import { Box, Center, Img, SimpleGrid, Text } from "@chakra-ui/react";
+import { Center, Img, SimpleGrid, Text } from "@chakra-ui/react";
 import Link from "next/link";
-import React, { useContext, useState } from "react";
-import  MoviesName  from "../Data/movieName.json";
+import React, { useContext } from "react";
 import { Context } from "./Clients";
 
 const MoviesGrid = () => {

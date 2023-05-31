@@ -13,11 +13,14 @@ import {
   Stack,
   Tag,
   Divider,
+  Avatar,
+  Image,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Loading from "../app/loading";
+import moment from "moment/moment";
 
 const MovieDetail = ({ id }) => {
   const [data, setData] = useState({});
@@ -50,6 +53,8 @@ const MovieDetail = ({ id }) => {
       });
   }, [id]);
 
+  console.log(data);
+
   return (
     <>
       {loading ? (
@@ -57,7 +62,7 @@ const MovieDetail = ({ id }) => {
       ) : (
         <>
           <Box>
-            <Box h={"70vh"}>
+            <Box h={"80vh"}>
               <Img
                 src={`https://image.tmdb.org/t/p/w780${data.backdrop_path}`}
                 filter={"brightness(0.5)"}
@@ -69,17 +74,23 @@ const MovieDetail = ({ id }) => {
             </Box>
             <Box
               position={"absolute"}
-              top={["30%", "35%"]}
+              top={["45vh", "50vh"]}
               left={["5%", "10%"]}
               zIndex="100"
               color={"white"}
+              maxW={"30rem"}
             >
-              <Heading as={"h2"} size="3xl">
+              <Heading as={"h2"} size="2xl" mb={4}>
                 {data.title}{" "}
               </Heading>
-              <HStack>
+
+              <HStack fontWeight={"500"}>
                 {/* <Text>{data.release_date.split("-")[0]}</Text> <Text>{"-"} </Text>{" "} */}
-                <Text>{data.runtime}m</Text>
+                <Text>{moment(data.release_date).format("YYYY")}</Text>
+                <Text> | </Text>
+                <Text>{moment(data.runtime).format("h[h] mm[m]")}</Text>
+                <Text> | </Text>
+                <Text>{data.status}</Text>
               </HStack>
             </Box>
           </Box>
@@ -90,53 +101,44 @@ const MovieDetail = ({ id }) => {
             mx={"auto"}
             columnGap={4}
           >
-            {/* <Box>
-          <Heading as={"h2"}>{data.original_title}</Heading>
-          <HStack>
-            <Text>{data.release_date.split("-")[0]}</Text> <Text>{"-"} </Text>{" "}
-            <Text>{data.runtime}m</Text>
-          </HStack>
-        </Box>
-        <Box w={{ base: "90vw", md: "80vw" }}>
-          <Img
-            src={`https://image.tmdb.org/t/p/w780${data.backdrop_path}`}
-            objectFit="contain"
-            w={"100%"}
-            h={"100%"}
-            borderRadius={10}
-          />
-        </Box> */}
             <HStack wrap={"nowrap"} gap={4} pt={10}>
               <Img
                 borderRadius={5}
                 src={`https://image.tmdb.org/t/p/w154${data.poster_path}`}
                 w={"7rem"}
               />
-              <Box>
-                <HStack my={2} wrap="wrap" rowGap={4}>
-                  {/* {data.genres.map((ele) => (
-                <Tag size="lg" borderRadius="full" key={ele.id}>
-                  {ele.name}
-                </Tag>
-              ))} */}
-                </HStack>
-                <Text
-                  fontSize={"1.2rem"}
-                  maxW={"50rem"}
-                  display={["none", "block"]}
-                >
-                  {data.overview}
-                </Text>
-              </Box>
+              <Stack direction={"column"}>
+                <Box my={2} >
+                  {data.genres?.map((ele) => (
+                    <Tag
+                      size="lg"
+                      borderRadius={10}
+                      key={ele.id}
+                      mx={2}
+                      my={2}
+                      px={4}
+                      py={2}
+                    >
+                      {ele.name}
+                    </Tag>
+                  ))}
+                </Box>
+                <Box display={["none","none", "block"]}>
+                  <Text fontSize={"1.2rem"} fontWeight={"bold"} mb={1}>
+                    {data?.tagline?.toUpperCase()}
+                  </Text>
+                  <Text fontSize={"1rem"} maxW={"50rem"}>
+                    {data.overview}
+                  </Text>
+                </Box>
+              </Stack>
             </HStack>
 
-            <Box>
-              <Text
-                fontSize={"1rem"}
-                maxW={"50rem"}
-                display={["black", "none"]}
-                textAlign={"justify"}
-              >
+            <Box display={["black","black", "none"]}>
+              <Text fontSize={"1.2rem"} fontWeight={"bold"} mb={1}>
+                {data?.tagline?.toUpperCase()}
+              </Text>
+              <Text fontSize={"1rem"} maxW={"50rem"} textAlign={"justify"}>
                 {data.overview}
               </Text>
             </Box>
@@ -145,9 +147,18 @@ const MovieDetail = ({ id }) => {
             <HStack gap={6} alignItems={"flex-start"}>
               <strong>Production Companies : </strong>
               <UnorderedList>
-                {/* {data.production_companies.map((ele) => (
-              <ListItem key={ele}>{ele.name}</ListItem>
-            ))} */}
+                {data.production_companies?.map((ele) => (
+                  <>
+                    <ListItem key={ele}>
+                      <Image
+                        aspectRatio={"16/9"}
+                        bgColor={"whitesmoke"}
+                        src={`https://image.tmdb.org/t/p/w154${ele.logo_path}`}
+                      />
+                      <Text>{ele.name}</Text>
+                    </ListItem>
+                  </>
+                ))}
               </UnorderedList>{" "}
             </HStack>
             <Divider />
