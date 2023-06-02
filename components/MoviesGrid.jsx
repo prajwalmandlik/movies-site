@@ -31,6 +31,7 @@ const MoviesGrid = () => {
                 src={`https://image.tmdb.org/t/p/w185${item.poster_path}`}
                 borderRadius={6}
                 alt={item.title}
+                boxShadow={"xl"}
               />
             </Link>
           ))}

@@ -1,20 +1,16 @@
 "use client";
 import {
-  Badge,
   Box,
   Heading,
   HStack,
   Img,
-  ListItem,
   Text,
-  UnorderedList,
   VStack,
-  chakra,
   Stack,
   Tag,
   Divider,
-  Avatar,
-  Image,
+  Center,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -53,7 +49,7 @@ const MovieDetail = ({ id }) => {
       });
   }, [id]);
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <>
@@ -62,7 +58,7 @@ const MovieDetail = ({ id }) => {
       ) : (
         <>
           <Box>
-            <Box h={"80vh"}>
+            <Box h={"60vh"}>
               <Img
                 src={`https://image.tmdb.org/t/p/w780${data.backdrop_path}`}
                 filter={"brightness(0.5)"}
@@ -74,11 +70,11 @@ const MovieDetail = ({ id }) => {
             </Box>
             <Box
               position={"absolute"}
-              top={["45vh", "50vh"]}
+              top={["40vh", "45vh"]}
               left={["5%", "10%"]}
               zIndex="100"
               color={"white"}
-              maxW={"30rem"}
+              maxW={"40rem"}
             >
               <Heading as={"h2"} size="2xl" mb={4}>
                 {data.title}{" "}
@@ -101,14 +97,14 @@ const MovieDetail = ({ id }) => {
             mx={"auto"}
             columnGap={4}
           >
-            <HStack wrap={"nowrap"} gap={4} pt={10}>
+            <HStack wrap={"nowrap"} gap={4} pt={5}>
               <Img
                 borderRadius={5}
                 src={`https://image.tmdb.org/t/p/w154${data.poster_path}`}
                 w={"7rem"}
               />
               <Stack direction={"column"}>
-                <Box my={2} >
+                <Box my={2}>
                   {data.genres?.map((ele) => (
                     <Tag
                       size="lg"
@@ -123,7 +119,7 @@ const MovieDetail = ({ id }) => {
                     </Tag>
                   ))}
                 </Box>
-                <Box display={["none","none", "block"]}>
+                <Box display={["none", "none", "block"]}>
                   <Text fontSize={"1.2rem"} fontWeight={"bold"} mb={1}>
                     {data?.tagline?.toUpperCase()}
                   </Text>
@@ -134,7 +130,7 @@ const MovieDetail = ({ id }) => {
               </Stack>
             </HStack>
 
-            <Box display={["black","black", "none"]}>
+            <Box display={["black", "black", "none"]}>
               <Text fontSize={"1.2rem"} fontWeight={"bold"} mb={1}>
                 {data?.tagline?.toUpperCase()}
               </Text>
@@ -143,43 +139,71 @@ const MovieDetail = ({ id }) => {
               </Text>
             </Box>
             <Divider />
-
-            <HStack gap={6} alignItems={"flex-start"}>
-              <strong>Production Companies : </strong>
-              <UnorderedList>
-                {data.production_companies?.map((ele) => (
-                  <>
-                    <ListItem key={ele}>
-                      <Image
-                        aspectRatio={"16/9"}
-                        bgColor={"whitesmoke"}
-                        src={`https://image.tmdb.org/t/p/w154${ele.logo_path}`}
-                      />
-                      <Text>{ele.name}</Text>
-                    </ListItem>
-                  </>
-                ))}
-              </UnorderedList>{" "}
-            </HStack>
-            <Divider />
-            <VStack gap={6} alignItems={"flex-start"}>
+            <VStack alignItems={"flex-start"}>
               <Text>
                 <strong>Release Date : </strong>
                 {data.release_date}{" "}
               </Text>
               <Text>
-                <strong>revenue : </strong>
+                <strong>Revenue : </strong>
                 {data.revenue}${" "}
               </Text>
               <Text>
                 <strong>Runtime : </strong>
-                {data.runtime}m{" "}
+                {moment(data.runtime).format("h[h] mm[m]")}
               </Text>
               <Text>
-                <strong>popularity : </strong>
+                <strong>Popularity : </strong>
                 {data.popularity}{" "}
               </Text>
             </VStack>
+
+            <Divider />
+            <Box w={"100%"}>
+              <Text fontWeight={"700"}>Production Companies : </Text>
+              <SimpleGrid
+                minChildWidth="12rem"
+                spacing="40px"
+                placeItems="center"
+                my={6}
+              >
+                {data.production_companies?.map((ele) => (
+                  <>
+                    <Box
+                      aspectRatio={"16/9"}
+                      bgColor={"gray.50"}
+                      _dark={{ bgColor: "gray.300" }}
+                      w={"12rem"}
+                      h={"auto"}
+                      rounded={"md"}
+                      boxShadow={"md"}
+                      _hover={{
+                        backgroundImage: `url(https://image.tmdb.org/t/p/w154${ele.logo_path})`,
+                        bgRepeat: "no-repeat",
+                        bgPosition: "center",
+                      }}
+                      onError={() => {
+                        toast.error("error");
+                      }}
+                      transition={"all 0.7s ease-in-out"}
+                    >
+                      <Center
+                        w={"100%"}
+                        h={"100%"}
+                        opacity={1}
+                        _hover={{ opacity: 0 }}
+                        fontSize={"1.2rem"}
+                        fontWeight={"bold"}
+                        textAlign={"center"}
+                        color={"black"}
+                      >
+                        {ele.name}
+                      </Center>
+                    </Box>
+                  </>
+                ))}
+              </SimpleGrid>
+            </Box>
           </VStack>{" "}
         </>
       )}
