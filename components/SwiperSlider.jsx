@@ -118,8 +118,13 @@ export default function SwiperSlider({ title, category }) {
                       objectFit={"cover"}
                       src={`https://image.tmdb.org/t/p/w185${item.poster_path}`}
                       borderRadius={6}
-                      aspectRatio={"12/16"}
+                      aspectRatio={"2/3"}
                       alt={item.id}
+                      bgColor={"hsl(200, 20%, 95%)"}
+                      _dark={{
+                        bgColor: "gray.900",
+                      }}
+                      loading={"lazy"}
                     />
                   </Link>
                 </SwiperSlide>

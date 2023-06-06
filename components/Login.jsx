@@ -24,6 +24,7 @@ if(data){
             objectFit="cover"
             w={"100%"}
             h={"100%"}
+            loading={"lazy"}
           />
         </Box>
         <Box
