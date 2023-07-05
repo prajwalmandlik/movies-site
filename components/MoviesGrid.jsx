@@ -50,9 +50,10 @@ const MoviesGrid = () => {
   };
 
   const handleScroll = async () => {
-    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-
-    if (scrollTop + clientHeight >= scrollHeight) {
+    const innerHeight = window.innerHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+    if (innerHeight + scrollTop + 1 >= scrollHeight) {
       const newMovies = await fetchMoviesData(category);
       // console.log(newMovies);
       setData((prevData) => [...prevData, ...newMovies]);
