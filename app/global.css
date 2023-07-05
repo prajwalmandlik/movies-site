@@ -1,0 +1,12 @@
+html,
+body {
+    overscroll-behavior-y: smooth;
+}
+
+@media screen and (max-width: 640px) {
+
+    html,
+    body {
+        overscroll-behavior-y: contain;
+    }
+}

@@ -4,6 +4,7 @@ import Header from "../layout/Header"
 import Footer from "../layout/Footer"
 import ScrollToTop from "../layout/ScrollToTop"
 import { ContextProvider } from '../components/Clients'
+import "./global.css"
 
 const inter = Inter({ subsets: ['latin'] })
 

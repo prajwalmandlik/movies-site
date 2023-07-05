@@ -18,10 +18,8 @@ const ScrollToTop = () => {
         pos={"fixed"}
         bottom={"5rem"}
         right={"2rem"}
-        bg={"gray.700"}
-        color={"white"}
-        __dark={{ bg: "gray.800" }}
-        _hover={{ bg: "gray.600" }}
+        __dark={{ bg: "gray.800", color: "white" }}
+        _hover={"none"}
         zIndex={"docked"}
         w={"3rem"}
         h={"3rem"}
