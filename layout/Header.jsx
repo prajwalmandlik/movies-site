@@ -37,6 +37,7 @@ const Header = () => {
   const router = useRouter();
 
   const { data } = useSession();
+  console.log(data);
 
   useEffect(() => {
     setLoading(true);
